@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+
+<body background="eğitim.jpg">
+  <div class="container" style="margin-top:150px;">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Kayıt Ekle</h1>
+        <label>Öğrenci No</label>
+        <input type="text" id="txtOgrno" class="form-control">
+        <label>Adı Soyadı</label>
+        <input type="text" id="txtAd" class="form-control">
+        <label>Mail</label>
+        <input type="text" id="txtMail" class="form-control">
+        <label>Bölüm</label>
+        <input type="text" id="txtBolum" class="form-control">
+        <br>
+        <button class="btn btn-success" id="btnKaydet">Kaydet</button>
+        <button class="btn btn-success" id="btntumusec">Tümünü Seç</button>
+        <button class="btn btn-success" id="btnRastgele">Rastgele Ödev Ata</button>
+        <br><br>
+        <button id="btnBosalt" class="btn btn-warning">Temizle</button>
+        <button class="btn btn-success" id="btnGuncelle">Güncelle</button>
+        <br><br>
+        <ul class="list-group">
+            <li class="list-group-item" id="1000">Market Satış Programı</li>
+            <li class="list-group-item" id="1001">Personel Takip Programı</li>
+            <li class="list-group-item" id="1002">Dernek Üye Takip Programı</li>
+            <li class="list-group-item" id="1003">Öğrenci Takip Programı</li>
+          </ul> 
+        <hr>
+        <div id="sonuc"></div>
+
+      </div>
+      <div class="col-md-8">
+        <h1>Kayıtlar</h1>
+        <table class="table table-hover" id="tbKayitlar" style="color:black">
+          <tr class="bg-info">
+            <td></td>
+            <td>Ögrenci No</td>
+            <td>Adı Soyadı</td>
+            <td>E posta</td>
+            <td>Bölüm</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="check1"> </td>
+            <td>123 </td>
+            <td>hasan Kara</td>
+            <td>hasan@mail.com</td>
+            <td>1121</td>
+            <td>
+              <button class="btn btn-danger sil">Sil</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="check2"> </td>
+            <td>124</td>
+            <td>Mehmet Sefa</td>
+            <td>Mehmet@mail.com</td>
+            <td>1132</td>
+            <td>
+              <button class="btn btn-danger sil">Sil</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-3.2.1.js"></script>
+  <script>
+    $(function () {
+      var kayitlar = [];
+      $("#btnKaydet").click(function () {
+        var ogrno = $("#txtOgrno").val();
+        var adsoyad = $("#txtAd").val();
+        var mail = $("#txtMail").val();
+        var bolum = $("#txtBolum").val();
+        if (ogrno == "" || adsoyad == "" || mail== "" || bolum=="" ) {
+          $("#sonuc").fadeIn(1000);
+          $("#sonuc").html("Lütfen Tüm Alanları Doldurunuz!");
+          $("#sonuc").removeClass();
+          $("#sonuc").addClass("alert alert-danger");
+          $("#sonuc").fadeOut(3000);
+          return false;
+          
+        }
+        
+        
+        
+        $("#tbKayitlar").append("<tr><td><input type='checkbox' id=" + ogrno + "> </td><td>" + ogrno + "</td><td>" +adsoyad + "</td><td>" + mail + "</td><td>"+bolum+"</td><td><button class='btn btn-danger sil'>Sil</button></tr>");
+      });
+      $(function () {
+                        $("#btnBosalt").click(function () {
+                            $("input:text, textarea").val("");
+                            return false;
+                        });
+                      });
+      $(function () {
+      $("#btntumusec").click(function () {
+        var sec = $(this).prop("checked");
+        for (var i = 0; i < $("input:checkbox").length; i++) {
+          var idsi = $("input:checkbox:eq(" + i + ")").attr("id");
+            document.getElementById(idsi).checked = true;
+        }
+      });
+      $("input:checkbox").click(function () {
+        var secili = true;
+        for (var i = 0; i < $("input:checkbox").length; i++) {
+          var idsi = $("input:checkbox:eq(" + i + ")").attr("id");
+          if ( document.getElementById(idsi).checked == false) {
+            secili = false;
+          }
+        }
+      });
+    });
+      $(document).on("click", ".sil", function () {
+        var satir = $(this).closest("tr");
+        satir.remove();
+      });
+      
+    });
+  </script>
+  
+</body>
+
+</body>
+</html>
